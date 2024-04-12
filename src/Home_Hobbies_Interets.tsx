@@ -92,7 +92,9 @@ const HomePageHobbiesInterests = (props: HomePageHobbiesInterestsProps) => {
               )}
             renderItem={({item})=>(
                 <View style={styles.itemStyle}> 
+                <View style={styles.hobbieImage}>
                     <Image source={item.hobbiesImage}/>
+                </View>
                     <Text style={styles.itemTextStyle}>{item.hobbiesName}</Text>
                 </View>
               )}
@@ -147,11 +149,29 @@ const styles = StyleSheet.create({
   itemStyle:{
     flex:1,
     flexWrap:'wrap',
-    alignContent:'flex-start',
-    backgroundColor:'pink',
-    alignSelf:'flex-start'
+    // alignContent:'flex-start',
+    // backgroundColor:'pink',
+    // alignSelf:'flex-start',
+    // justifyContent:'center',
+    marginRight:12,
+    marginBottom:12
+
   },
   sectionListView:{
     flexDirection:'row'
+  },
+  hobbieImage:{
+    borderWidth:1,
+    borderColor:'#14152B61',
+    borderRadius:8,
+    // maxHeight:57,
+    // maxWidth:57
+    // justifyContent:'center',
+    // alignItems:'center'
+  },
+  itemTextStyle:{
+    // flex:1,
+    maxWidth:75,
+    fontSize:12,
   }
 });
