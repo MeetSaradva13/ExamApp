@@ -26,6 +26,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import HomePage from './src/home';
 import HomePageHobbiesInterests from './src/Home_Hobbies_Interets';
+import HomePageHobbies from './src/Home_Page';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -73,6 +74,7 @@ function App(): React.JSX.Element {
       />
       {/* <HomePage/> */}
       <HomePageHobbiesInterests/>
+      {/* <HomePageHobbies/> */}
     </SafeAreaView>
   );
 }
