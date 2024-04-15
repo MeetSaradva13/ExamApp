@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, SectionList, Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, SectionList, Image, Dimensions, TouchableOpacity, ScrollView, Button } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-interface HomePageHobbiesInterestsProps { }
+interface HomePageHobbiesInterestsProps {
+  renderItem : []
+ }
 const screenWidth = Dimensions.get('window').width;
 const HobbiesInterets = [
   {
@@ -62,7 +64,7 @@ const HobbiesInterets = [
     title: 'Travelling/Adventure',
     data: [
       {
-        id: 2,
+        id: 9,
         hobbiesName: 'Vacations',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: true,
@@ -73,25 +75,25 @@ const HobbiesInterets = [
     title: 'Foodies and Cheers',
     data: [
       {
-        id: 12,
+        id: 10,
         hobbiesName: 'Cooking',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 13,
+        id: 11,
         hobbiesName: 'Culinary',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 14,
+        id: 12,
         hobbiesName: 'Restaurants',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 15,
+        id: 13,
         hobbiesName: 'Dining out',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
@@ -102,25 +104,25 @@ const HobbiesInterets = [
     title: 'Music/Entertainment ',
     data: [
       {
-        id: 12,
+        id: 14,
         hobbiesName: 'Festivals',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 13,
+        id: 15,
         hobbiesName: 'Concerts',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 14,
+        id: 16,
         hobbiesName: 'Bands/DJs',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 15,
+        id: 17,
         hobbiesName: 'Musical Instruments',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
@@ -131,25 +133,25 @@ const HobbiesInterets = [
     title: 'Gathering',
     data: [
       {
-        id: 12,
+        id: 18,
         hobbiesName: 'Bonfire',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 13,
+        id: 19,
         hobbiesName: 'Picnics',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 14,
+        id: 20,
         hobbiesName: 'BBQ/Grilling',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 15,
+        id: 21,
         hobbiesName: 'Camping',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
@@ -160,19 +162,19 @@ const HobbiesInterets = [
     title: 'Spiritual/Motivation',
     data: [
       {
-        id: 12,
+        id: 22,
         hobbiesName: 'Meditation',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: true,
       },
       {
-        id: 13,
+        id: 23,
         hobbiesName: 'Mindfulness',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
       },
       {
-        id: 14,
+        id: 24,
         hobbiesName: 'Public Speaking',
         hobbiesImage: require('../assests/images/h1.png'),
         isSelected: false,
@@ -188,14 +190,24 @@ const HomePageHobbiesInterests = (props: HomePageHobbiesInterestsProps) => {
   // const [showHobbies, setShowHobbies] = React.useState(false);
   // const [selectedHobbies, setSelectedHobbies] = React.useState([]);
   const [visibleSections, setVisibleSections] = React.useState([]);
+  const [clickedItems, setClickedItems] = React.useState({});
 
+
+  // const toggleSectionVisibility = (title) => {
+  //   if (visibleSections.includes(title)) {
+  //     setVisibleSections(visibleSections.filter((sectionTitle) => sectionTitle !== title));
+  //   } else {
+  //     setVisibleSections([...visibleSections, title]);
+  //   }
+  // };
   const toggleSectionVisibility = (title) => {
-    if (visibleSections.includes(title)) {
-      setVisibleSections(visibleSections.filter((sectionTitle) => sectionTitle !== title));
+    if (visibleSections === title) {
+      setVisibleSections("null");  
     } else {
-      setVisibleSections([...visibleSections, title]);
+      setVisibleSections(title); // Otherwise, show the selected section
     }
   };
+  
 
   // const toggleHobbiesVisibility = (title: string) => {
   //   const hobby: any = HobbiesInterets.filter(hobby => hobby.title === title);
@@ -224,12 +236,36 @@ const HomePageHobbiesInterests = (props: HomePageHobbiesInterestsProps) => {
 
   const renderItem = ({ item }) => (
     <View style={styles.itemStyle}>
-      <View style={styles.hobbieImage}>
+      <TouchableOpacity
+        style={[styles.hobbieImage, clickedItems[item.id] && styles.clickedItem]} // Apply the clickedItem style if the item is clicked
+        onPress={() => handleItemClick(item.id)} // Pass the item id to the handleItemClick function
+      >
         <Image source={item.hobbiesImage} />
-      </View>
+      </TouchableOpacity>
       <Text style={styles.itemTextStyle}>{item.hobbiesName}</Text>
     </View>
   );
+  const handleItemClick = (itemId) => {
+    const selectedCount = Object.values(clickedItems).filter(Boolean).length;
+
+   
+    // if (selectedCount === 6 && !clickedItems[itemId]) {
+        
+    //     console.warn("Maximum limit of 5 selections reached");
+    //     return; 
+    // }else
+
+    // if (selectedCount === 2 && clickedItems[itemId]) {
+  
+    //     console.warn("Minimum limit of 2 selections reached");
+    //     return; 
+    // }
+   
+    setClickedItems(prevState => ({
+      ...prevState,
+      [itemId]: !prevState[itemId]
+    }));
+  };
 
   return (
     <View style={styles.container}>
@@ -291,6 +327,17 @@ const HomePageHobbiesInterests = (props: HomePageHobbiesInterestsProps) => {
             }}
           />
         </View>
+        {/* <TouchableOpacity 
+        onPress={() => props.navigation.push('HighliteSelect')}>
+          */}
+         <TouchableOpacity 
+    onPress={() => props.navigation.navigate('HighliteSelect', { hobbiesData: HobbiesInterets, selectedItems: clickedItems })}
+>
+    <LinearGradient colors={['#0DA8F5','#2255FF']} style={styles.buttonView}> 
+        <Text style={styles.buttonTextStyle}>Next</Text>
+    </LinearGradient>
+</TouchableOpacity>
+
       </ScrollView>
     </View>
   );
@@ -355,11 +402,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 57,
     width: 57,
-
-    // maxHeight:57,
-    // maxWidth:57
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  
+  
+  clickedItem: {
+    backgroundColor: '#00000014' 
   },
   itemTextStyle: {
     // flex:1,
@@ -393,5 +442,22 @@ const styles = StyleSheet.create({
     marginLeft: 20
 
 
+  },
+  buttonView:{
+    marginTop:20,
+    marginBottom:27,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius:100,
+    backgroundColor:'red'
+    
+  },
+  buttonTextStyle:{
+    marginVertical:16,
+    marginHorizontal:120,
+    fontSize:18,
+    fontWeight:'600',
+    color:'#FFFFFF',
   }
 });

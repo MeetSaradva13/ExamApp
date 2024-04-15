@@ -27,6 +27,7 @@ import {
 import HomePage from './src/home';
 import HomePageHobbiesInterests from './src/Home_Hobbies_Interets';
 import HomePageHobbies from './src/Home_Page';
+import NavigationScreenFlow from './src/Navigation_Screen';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -73,8 +74,9 @@ function App(): React.JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       {/* <HomePage/> */}
-      <HomePageHobbiesInterests/>
+      {/* <HomePageHobbiesInterests/> */}
       {/* <HomePageHobbies/> */}
+      <NavigationScreenFlow/>
     </SafeAreaView>
   );
 }
