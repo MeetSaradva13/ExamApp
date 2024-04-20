@@ -24,10 +24,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import HomePage from './src/home';
-import HomePageHobbiesInterests from './src/Home_Hobbies_Interets';
-import HomePageHobbies from './src/Home_Page';
-import NavigationScreenFlow from './src/Navigation_Screen';
+
+import ContactListView from './Contact_List_View';
+import ContactListStackPage from './Contact_List_StackPage';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -73,10 +72,9 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      {/* <HomePage/> */}
-      {/* <HomePageHobbiesInterests/> */}
-      {/* <HomePageHobbies/> */}
-      <NavigationScreenFlow/>
+      <ContactListStackPage/>
+  
+      {/* <ContactListView/> */}
     </SafeAreaView>
   );
 }
